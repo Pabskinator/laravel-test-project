@@ -29,6 +29,9 @@ Route::get('/about', function () {
 
 });
 
+Route::get('/articles/{article}', 'ArticlesController@show');
+Route::get('/articles', 'ArticlesController@index');
+
 //basic routing wildcard
 
 //Route::get('/posts/{post}', function ($post) {
