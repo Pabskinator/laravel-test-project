@@ -21,13 +21,11 @@ class ArticlesController extends Controller
 
     //show a single resource
 
-    public function show($id)
+    public function show(Article $article)
     {
-
         return view('articles.show', [
-           'article' => Article::findOrFail($id)
+           'article' => $article
         ]);
-
     }
 
     //shows a view to create resource
@@ -61,16 +59,14 @@ class ArticlesController extends Controller
 
     //show a view to edit an existing resource
 
-    public function edit($id)
+    public function edit(Article $article)
     {
-        $article = Article::find($id);
-
         return view('articles.edit', compact('article'));
     }
 
     //persist the edited resource
 
-    public function update($id)
+    public function update(Article $article)
     {
 
         request()->validate([
@@ -78,8 +74,6 @@ class ArticlesController extends Controller
             'excerpt' => 'required',
             'body' => 'required',
         ]);
-
-        $article = Article::find($id);
 
         $article->title = request('title');
         $article->excerpt = request('excerpt');
