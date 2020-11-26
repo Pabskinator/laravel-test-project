@@ -22,7 +22,11 @@ Route::get('/contact', function () {
 });
 
 Route::get('/about', function () {
-    return view('about');
+
+    return view('about', [
+        'articles' => App\Models\Article::latest()->get()
+    ]);
+
 });
 
 //basic routing wildcard
