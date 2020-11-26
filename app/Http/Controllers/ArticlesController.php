@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
 {
@@ -12,11 +11,9 @@ class ArticlesController extends Controller
 
     public function index()
     {
-
         return view('articles.index', [
             'articles' => Article::latest()->get()
         ]);
-
     }
 
     //show a single resource
@@ -39,22 +36,9 @@ class ArticlesController extends Controller
 
     public function store()
     {
+        Article::create($this->validateArticle());
 
-        request()->validate([
-           'title' => 'required',
-           'excerpt' => 'required',
-           'body' => 'required',
-        ]);
-
-        $article = new Article();
-
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
-
-        $article->save();
-
-        return redirect('/articles');
+        return redirect(route('articles.index'));
     }
 
     //show a view to edit an existing resource
@@ -68,20 +52,9 @@ class ArticlesController extends Controller
 
     public function update(Article $article)
     {
+        $article->update($this->validateArticle());
 
-        request()->validate([
-            'title' => 'required',
-            'excerpt' => 'required',
-            'body' => 'required',
-        ]);
-
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
-
-        $article->save();
-
-        return redirect('/articles/' . $article->id);
+        return redirect($article->path());
     }
 
     //delete a resource
@@ -89,6 +62,18 @@ class ArticlesController extends Controller
     public function destroy()
     {
 
+    }
+
+    /**
+     * @return array
+     */
+    public function validateArticle(): array
+    {
+        return request()->validate([
+            'title' => 'required',
+            'excerpt' => 'required',
+            'body' => 'required',
+        ]);
     }
 
 }
