@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,5 +38,5 @@ Route::get('/', function () {
 
 //routing using controller, laravel 8.x syntax
 
-Route::get('/posts/{post}', [PostsController::class, 'show']);
+Route::get('/posts/{post}', 'PostsController@show');
 
