@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/contact', function () {
+    return view('contact');
+});
+
 //basic routing wildcard
 
 //Route::get('/posts/{post}', function ($post) {
